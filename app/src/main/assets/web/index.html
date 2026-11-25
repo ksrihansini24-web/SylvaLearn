@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>SylvaLearn — Personalised Learning Assistant</title>
+    <meta name="description" content="Mobile-first educational productivity web app combining calm study focus with document-based learning, adaptive quiz mastery, and modular AI tutor interfaces." />
+    <meta property="og:title" content="SylvaLearn — Personalised Learning Assistant" />
+    <meta property="og:description" content="Mobile-first educational productivity web app combining calm study focus with document-based learning, adaptive quiz mastery, and modular AI tutor interfaces." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="module" crossorigin src="./assets/index-B7q8IiTR.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CDahrTf1.css">
+  </head>
+  <body class="bg-[#FAF8F5] text-[#19221D] min-h-screen flex flex-col font-sans select-none md:select-auto">
+    <!-- Accessible Screen-Reader Announcer -->
+    <div id="i18n-live-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- First-Visit Auto-Detected Language Suggestion Banner -->
+    <div id="lang-autodetect-banner" class="hidden bg-[#1B3E2C] text-white px-4 py-2.5 text-xs sm:text-sm border-b border-[#29573F]">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+          </svg>
+          <span id="lang-autodetect-text">Switch to हिन्दी (Hindi)?</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-autodetect-accept" class="px-3 py-1 rounded-lg bg-emerald-400 hover:bg-emerald-300 text-[#122B1E] font-semibold text-xs transition-colors" data-i18n="i18n.switchAction">
+            Switch
+          </button>
+          <button id="btn-autodetect-dismiss" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs transition-colors" data-i18n="i18n.dismissAction">
+            Keep English
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top App Bar -->
+    <header class="sticky top-0 z-30 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#E7E2D6] px-4 py-3 sm:px-6">
+      <div class="max-w-6xl mx-auto flex items-center justify-between gap-2 sm:gap-3">
+        <!-- Logo and Slogan -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-[#1B3E2C] text-[#D8E7DF] flex items-center justify-center shadow-sm shrink-0">
+            <!-- Leaf / Sprout SVG -->
+            <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 0C9 5 5 8 5 12c0 3 2 5 7 5m0-12c3 0 7 3 7 7 0 3-2 5-7 5" />
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="font-bold text-base tracking-tight text-[#122B1E]" data-i18n="header.brand">SylvaLearn</span>
+              <span class="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#EBF3EF] text-[#29573F] border border-[#D8E7DF]" data-i18n="header.prototypeBadge">Prototype</span>
+            </div>
+            <p class="text-xs text-[#596B61] hidden sm:block leading-snug" data-i18n="header.tagline">Calm focus & document-based learning</p>
+          </div>
+        </div>
+
+        <!-- Student status info, Language Switcher, Profile & Reset triggers -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- Daily focus time badge -->
+          <div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#EBF3EF] border border-[#D8E7DF] text-xs font-medium text-[#1B3E2C]">
+            <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span id="header-focus-minutes">50m focused</span>
+          </div>
+
+          <!-- Language & Accessibility Switcher button -->
+          <button id="btn-open-language" data-i18n-title="header.settingsTooltip" data-i18n-aria-label="header.languageButtonLabel" title="Language & Accessibility Settings" aria-label="Change language" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 min-h-[36px] rounded-lg bg-white border border-[#E5E0D5] hover:border-[#29573F] hover:bg-[#EBF3EF] text-xs font-medium text-[#1B3E2C] shadow-xs transition-colors">
+            <svg class="w-4 h-4 text-[#29573F] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+            <span id="header-lang-label" class="max-w-[90px] truncate">English</span>
+          </button>
+
+          <!-- Edit Profile / Onboarding trigger -->
+          <button id="btn-open-profile" data-i18n-title="header.profileTooltip" title="View & Edit Learning Profile" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 min-h-[36px] rounded-lg bg-white border border-[#E5E0D5] hover:bg-[#F4F1EA] text-xs font-medium text-[#19221D] shadow-xs transition-colors">
+            <svg class="w-3.5 h-3.5 text-[#596B61] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span id="header-student-name">Alex</span>
+          </button>
+
+          <!-- Reset Demo Data button -->
+          <button id="btn-reset-demo" data-i18n-title="header.resetTooltip" data-i18n-aria-label="header.resetTooltip" title="Reset all prototype data to defaults" aria-label="Reset all prototype data to defaults" class="p-2 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-[#596B61] hover:text-[#C86D51] hover:bg-[#F4F1EA] transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main App Container: Responsive layout (Sidebar on desktop, Bottom nav on mobile) -->
+    <div class="max-w-6xl w-full mx-auto flex-1 flex flex-col md:flex-row gap-6 p-3 sm:p-5 md:p-6 safe-bottom-padding">
+
+      <!-- Desktop Navigation Sidebar -->
+      <aside class="hidden md:flex flex-col w-60 shrink-0 gap-2">
+        <div class="bg-white rounded-2xl border border-[#E7E2D6] p-3 shadow-xs">
+          <nav class="flex flex-col gap-1" id="desktop-nav">
+            <button data-tab="dashboard" class="nav-tab-btn active flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-[#1B3E2C] bg-[#EBF3EF] transition-all text-start">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span class="leading-snug" data-i18n="nav.dashboard">Dashboard</span>
+            </button>
+            <button data-tab="textbooks" class="nav-tab-btn flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-[#596B61] hover:bg-[#FAF8F5] hover:text-[#19221D] transition-all text-start">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              <span class="leading-snug" data-i18n="nav.textbooks">My Textbooks</span>
+            </button>
+            <button data-tab="tutor" class="nav-tab-btn flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-[#596B61] hover:bg-[#FAF8F5] hover:text-[#19221D] transition-all text-start">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              </svg>
+              <span class="leading-snug" data-i18n="nav.tutor">AI Tutor</span>
+            </button>
+            <button data-tab="quiz" class="nav-tab-btn flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-[#596B61] hover:bg-[#FAF8F5] hover:text-[#19221D] transition-all text-start">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="leading-snug" data-i18n="nav.quiz">Quizzes & Mastery</span>
+            </button>
+            <button data-tab="plan" class="nav-tab-btn flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-[#596B61] hover:bg-[#FAF8F5] hover:text-[#19221D] transition-all text-start">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="leading-snug" data-i18n="nav.plan">Study Plan</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Mini Forest Focus Status Widget on Sidebar -->
+        <div class="bg-gradient-to-br from-[#EBF3EF] to-[#D8E7DF] rounded-2xl p-4 border border-[#CADED4] flex flex-col items-center text-center">
+          <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-xs mb-2 text-emerald-700">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 0 0 9-9c0-4.97-4.03-9-9-9s-9 4.03-9 9a9 9 0 0 0 9 9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 17v-6m-3 3 3-3 3 3" />
+            </svg>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-[#1B3E2C]" data-i18n="sidebar.treeGrowth">Study Tree Growth</span>
+          <p class="text-xs text-[#3D7B5C] mt-1" id="sidebar-tree-status">Sprout thriving</p>
+        </div>
+      </aside>
+
+      <!-- Main Content Area where views swap -->
+      <main class="flex-1 flex flex-col min-w-0" id="main-content">
+
+        <!-- ================= DEVELOPER AUDIT OVERLAY (/i18n-check) ================= -->
+        <section id="view-i18n-check" class="hidden bg-white rounded-3xl p-5 sm:p-6 border border-[#E7E2D6] shadow-xs mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-[#E7E2D6]">
+            <div>
+              <h2 class="text-lg sm:text-xl font-bold text-[#122B1E]">Multilingual Coverage Audit (/i18n-check)</h2>
+              <p class="text-xs text-[#596B61]" id="i18n-audit-summary">Verifying all 22 Eighth Schedule languages + alternate scripts against en.json...</p>
+            </div>
+            <button id="btn-close-i18n-audit" class="px-3.5 py-2 rounded-xl bg-[#1B3E2C] text-white text-xs font-medium">
+              Back to App
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-start">
+              <thead class="text-[#596B61] border-b border-[#E7E2D6] bg-[#FAF8F5]">
+                <tr>
+                  <th class="py-2.5 px-3">Code</th>
+                  <th class="py-2.5 px-3">Language</th>
+                  <th class="py-2.5 px-3">Completion</th>
+                  <th class="py-2.5 px-3">Translated Keys</th>
+                  <th class="py-2.5 px-3">Missing Keys</th>
+                  <th class="py-2.5 px-3">Identical to EN</th>
+                </tr>
+              </thead>
+              <tbody id="i18n-audit-tbody" class="divide-y divide-[#E7E2D6]"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 1: HOME DASHBOARD ================= -->
+        <section id="view-dashboard" class="view-panel flex flex-col gap-6">
+
+          <!-- Welcoming Banner & Goal -->
+          <div class="bg-gradient-to-r from-[#1B3E2C] to-[#29573F] text-white rounded-3xl p-5 sm:p-6 shadow-sm relative overflow-hidden">
+            <div class="relative z-10">
+              <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                <span class="text-xs uppercase tracking-wider font-semibold text-emerald-200" id="dash-greeting-time">Good afternoon</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-white/15 text-emerald-100" id="dash-academic-tag">Grade 11</span>
+              </div>
+              <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2 leading-tight" id="dash-student-welcome">Welcome back, Alex</h1>
+              <div class="bg-black/20 rounded-xl p-3 border border-white/10 backdrop-blur-xs flex items-start gap-2.5 max-w-xl">
+                <svg class="w-5 h-5 text-amber-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <div class="text-xs sm:text-sm text-emerald-50 leading-relaxed">
+                  <span class="font-semibold text-white" data-i18n="dashboard.dailyTarget">Daily Target:</span>
+                  <span id="dash-goal-text">Score 90%+ in Biology & Math mid-terms, strengthen conceptual foundations.</span>
+                </div>
+              </div>
+            </div>
+            <!-- Decorative leaf watermark -->
+            <div class="absolute -end-6 -bottom-8 opacity-10 pointer-events-none text-white">
+              <svg class="w-48 h-48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button data-quick="tutor" class="quick-action-btn flex items-center gap-3 p-3.5 bg-white rounded-2xl border border-[#E7E2D6] hover:border-[#3D7B5C] hover:bg-[#FAF8F5] transition-all text-start group min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#EBF3EF] text-[#29573F] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <h4 class="text-sm font-semibold text-[#19221D] leading-snug" data-i18n="dashboard.quickTutorTitle">Ask AI Tutor</h4>
+                <p class="text-[11px] text-[#596B61] leading-snug" data-i18n="dashboard.quickTutorSub">Textbook Q&A</p>
+              </div>
+            </button>
+
+            <button data-quick="textbooks" class="quick-action-btn flex items-center gap-3 p-3.5 bg-white rounded-2xl border border-[#E7E2D6] hover:border-[#3D7B5C] hover:bg-[#FAF8F5] transition-all text-start group min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#F5EBE6] text-[#C86D51] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <h4 class="text-sm font-semibold text-[#19221D] leading-snug" data-i18n="dashboard.quickTextbooksTitle">My Textbooks</h4>
+                <p class="text-[11px] text-[#596B61] leading-snug" data-i18n="dashboard.quickTextbooksSub">Select local PDFs</p>
+              </div>
+            </button>
+
+            <button data-quick="quiz" class="quick-action-btn flex items-center gap-3 p-3.5 bg-white rounded-2xl border border-[#E7E2D6] hover:border-[#3D7B5C] hover:bg-[#FAF8F5] transition-all text-start group min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#FBF0D9] text-[#A66E1E] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <h4 class="text-sm font-semibold text-[#19221D] leading-snug" data-i18n="dashboard.quickQuizTitle">Take a Quiz</h4>
+                <p class="text-[11px] text-[#596B61] leading-snug" data-i18n="dashboard.quickQuizSub">Active recall</p>
+              </div>
+            </button>
+
+            <button data-quick="plan" class="quick-action-btn flex items-center gap-3 p-3.5 bg-white rounded-2xl border border-[#E7E2D6] hover:border-[#3D7B5C] hover:bg-[#FAF8F5] transition-all text-start group min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#E6F0FA] text-[#2A659E] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <h4 class="text-sm font-semibold text-[#19221D] leading-snug" data-i18n="dashboard.quickPlanTitle">Study Plan</h4>
+                <p class="text-[11px] text-[#596B61] leading-snug" data-i18n="dashboard.quickPlanSub">Weekly timetable</p>
+              </div>
+            </button>
+          </div>
+
+          <!-- Two-column grid: Focus Session Forest Timer & Today's Schedule -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Focus Timer Card (Forest-inspired) -->
+            <div class="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs flex flex-col items-center text-center">
+              <div class="w-full flex items-center justify-between gap-2 mb-3 flex-wrap">
+                <div class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#29573F]">
+                  <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                  <span data-i18n="dashboard.focusSession">Focus Session</span>
+                </div>
+                <!-- Duration Selector -->
+                <div class="flex items-center gap-1 bg-[#FAF8F5] p-1 rounded-xl border border-[#E7E2D6]" id="timer-presets">
+                  <button data-duration="15" class="timer-preset-btn px-2 py-0.5 rounded-lg text-xs font-medium text-[#596B61] hover:text-[#19221D]">15m</button>
+                  <button data-duration="25" class="timer-preset-btn active px-2 py-0.5 rounded-lg text-xs font-semibold text-[#1B3E2C] bg-white shadow-2xs">25m</button>
+                  <button data-duration="45" class="timer-preset-btn px-2 py-0.5 rounded-lg text-xs font-medium text-[#596B61] hover:text-[#19221D]">45m</button>
+                </div>
+              </div>
+
+              <!-- Tree Growth Visual Area -->
+              <div class="relative w-44 h-44 my-2 flex items-center justify-center">
+                <!-- Circular Progress Ring SVG -->
+                <svg class="w-full h-full transform -rotate-90">
+                  <circle cx="88" cy="88" r="76" stroke="#EBF3EF" stroke-width="8" fill="none" />
+                  <circle id="timer-progress-ring" cx="88" cy="88" r="76" stroke="#2E6F4E" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="477.5" stroke-dashoffset="0" class="transition-all duration-300" />
+                </svg>
+
+                <!-- Center Tree / Sprout Illustration -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-4">
+                  <div id="timer-tree-icon" class="text-[#2E6F4E] transition-transform duration-500">
+                    <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-7m0 0c-3 0-5-2-5-5a5 5 0 0 1 10 0c0 3-2 5-5 5z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 14s-2-1-2-3a3 3 0 0 1 6 0" />
+                    </svg>
+                  </div>
+                  <span id="timer-stage-label" class="text-[11px] font-medium text-[#596B61] mt-1 leading-snug">Sprouting Seed</span>
+                </div>
+              </div>
+
+              <!-- Time display -->
+              <div class="text-4xl font-mono font-bold tracking-tight text-[#122B1E] my-1" dir="ltr" id="timer-digits">
+                25:00
+              </div>
+
+              <!-- Timer Controls -->
+              <div class="flex items-center gap-3 mt-3 w-full max-w-xs justify-center">
+                <button id="btn-timer-toggle" class="flex-1 py-2.5 px-4 min-h-[44px] rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white font-medium text-sm flex items-center justify-center gap-2 shadow-xs transition-colors">
+                  <svg id="timer-toggle-icon" class="w-4 h-4 rtl-flip shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                  <span id="timer-toggle-label">Start Focus</span>
+                </button>
+                <button id="btn-timer-reset" data-i18n-title="dashboard.resetTimerTooltip" data-i18n-aria-label="dashboard.resetTimerTooltip" title="Reset timer" aria-label="Reset timer" class="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border border-[#E7E2D6] text-[#596B61] hover:bg-[#FAF8F5] hover:text-[#19221D] transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
+              </div>
+
+              <p class="text-[11px] text-[#596B61] mt-3 leading-relaxed" data-i18n="dashboard.timerHint">Stay on this tab to cultivate your tree into full foliage.</p>
+            </div>
+
+            <!-- Today's Timetable & Date Calendar Strip -->
+            <div class="lg:col-span-7 bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <div>
+                    <h3 class="font-bold text-base text-[#19221D]" data-i18n="dashboard.todaySchedule">Today's Study Schedule</h3>
+                    <p class="text-xs text-[#596B61]" id="dash-schedule-date-str">Wednesday, 21 October 2026</p>
+                  </div>
+                  <button id="btn-dash-add-session" class="text-xs font-semibold text-[#29573F] bg-[#EBF3EF] px-3 py-2 min-h-[36px] rounded-xl hover:bg-[#D8E7DF] transition-colors flex items-center gap-1 shrink-0">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span data-i18n="dashboard.add">Add</span>
+                  </button>
+                </div>
+
+                <!-- Horizontal Date Selector Strip -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-2 mb-4 scrollbar-none" id="dash-calendar-strip">
+                  <!-- Populated via JS -->
+                </div>
+
+                <!-- Session list container -->
+                <div class="flex flex-col gap-2.5" id="dash-sessions-container">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+
+              <!-- Habit Suggestion Banner -->
+              <div class="mt-4 pt-3 border-t border-[#E7E2D6] flex items-start gap-3 bg-[#FAF8F5] p-3 rounded-2xl">
+                <div class="w-7 h-7 rounded-lg bg-[#FAF0DC] text-[#A66E1E] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h5 class="text-xs font-semibold text-[#19221D]" id="dash-habit-title">Study Tip: The 25-Minute Focus Interval</h5>
+                  <p class="text-xs text-[#596B61] leading-relaxed mt-0.5" id="dash-habit-desc">Sustained attention drops after 35 minutes. Work with full immersion for 25 minutes, then stand up and disconnect for 5 minutes.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Progress & Mastery Summary Card -->
+          <div class="bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="font-bold text-base text-[#19221D]" data-i18n="dashboard.masteryHeading">Quiz Mastery & Diagnostic Progress</h3>
+                <p class="text-xs text-[#596B61]" data-i18n="dashboard.masterySub">Transparent mastery based on verifiable quiz results</p>
+              </div>
+              <button data-quick="quiz" class="text-xs font-medium text-[#29573F] hover:underline flex items-center gap-1">
+                <span data-i18n="dashboard.viewQuestionBank">View Question Bank</span>
+                <svg class="w-3.5 h-3.5 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Topic mastery bars -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="dash-mastery-cards">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= VIEW 2: TEXTBOOK LIBRARY ================= -->
+        <section id="view-textbooks" class="view-panel hidden flex flex-col gap-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[#122B1E]" data-i18n="textbooks.title">Textbook & Document Library</h2>
+              <p class="text-xs sm:text-sm text-[#596B61]" data-i18n="textbooks.subtitle">Select local PDF study materials. Handled entirely on your local device.</p>
+            </div>
+            <!-- Upload / Select PDF Button -->
+            <label class="cursor-pointer inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white font-medium text-xs sm:text-sm shadow-xs transition-colors shrink-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              <span data-i18n="textbooks.selectPdf">Select PDF from Device</span>
+              <input type="file" id="pdf-file-input" accept=".pdf" class="hidden" />
+            </label>
+          </div>
+
+          <!-- Safe Local Handling Prototype Notice -->
+          <div class="bg-[#FAF8F5] border border-[#E7E2D6] rounded-2xl p-4 flex items-start gap-3">
+            <div class="w-8 h-8 rounded-xl bg-[#EBF3EF] text-[#29573F] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="text-xs text-[#596B61] leading-relaxed">
+              <span class="font-semibold text-[#19221D]" data-i18n="textbooks.privacyTitle">Local Privacy Guarantee & Prototype Boundary:</span>
+              <span data-i18n="textbooks.privacyBody">Selected documents are parsed locally for file metadata; no files are uploaded to external cloud servers. The current prototype includes curated passages for Campbell Biology, Stewart Calculus, and Modern History. When connected to the native Android ExecuTorch container, the full on-device PDF extractor and vector chunker will index any custom uploaded file automatically.</span>
+            </div>
+          </div>
+
+          <!-- Textbook Cards Container -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="textbooks-list">
+            <!-- Populated via JS -->
+          </div>
+        </section>
+
+        <!-- ================= VIEW 3: AI TUTOR CHATBOT ================= -->
+        <section id="view-tutor" class="view-panel hidden flex flex-col h-[calc(100vh-10rem)] md:h-[calc(100vh-7rem)] bg-white rounded-3xl border border-[#E7E2D6] shadow-xs overflow-hidden">
+
+          <!-- Tutor Header with Textbook Selector and Student Level -->
+          <div class="p-3 sm:p-4 border-b border-[#E7E2D6] bg-[#FAF8F5] flex flex-wrap items-center justify-between gap-2.5">
+            <div class="flex items-center gap-2 min-w-0">
+              <div class="w-8 h-8 rounded-xl bg-[#1B3E2C] text-emerald-300 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <h3 class="font-bold text-sm text-[#19221D]" data-i18n="tutor.title">Document Tutor</h3>
+                  <span id="tutor-engine-badge" class="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#EBF3EF] text-[#29573F] border border-[#D8E7DF]" data-i18n="tutor.engineGemini">Offline Llama 3.2</span>
+                </div>
+                <p class="text-[11px] text-[#596B61] truncate" id="tutor-level-indicator">Adapted to Grade 11 • Visual Diagrams</p>
+              </div>
+            </div>
+
+            <!-- Active Textbook Selector Dropdown -->
+            <div class="flex items-center gap-1.5 w-full sm:w-auto">
+              <label for="tutor-textbook-select" class="text-xs text-[#596B61] shrink-0" data-i18n="tutor.bookLabel">Book:</label>
+              <select id="tutor-textbook-select" class="flex-1 sm:w-56 text-xs bg-white border border-[#E5E0D5] rounded-xl px-2.5 py-1.5 text-[#19221D] focus:outline-none focus:border-[#29573F]">
+                <!-- Options populated via JS -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Chat Messages Scroll Container -->
+          <div class="flex-1 p-4 overflow-y-auto flex flex-col gap-4" id="chat-messages-container">
+            <!-- Messages rendered dynamically -->
+          </div>
+
+          <!-- Suggested Prompt Chips Carousel -->
+          <div class="px-4 py-2 border-t border-[#E7E2D6] bg-[#FAF8F5]/50 flex items-center gap-2 overflow-x-auto scrollbar-none">
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-[#596B61] shrink-0" data-i18n="tutor.promptsLabel">Prompts:</span>
+            <button class="tutor-chip-btn whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-white border border-[#E5E0D5] hover:border-[#29573F] hover:bg-[#EBF3EF] text-[#19221D] transition-colors" data-prompt-key="tutor.promptSimple">
+              <span data-i18n="tutor.promptSimple">Explain this simply</span>
+            </button>
+            <button class="tutor-chip-btn whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-white border border-[#E5E0D5] hover:border-[#29573F] hover:bg-[#EBF3EF] text-[#19221D] transition-colors" data-prompt-key="tutor.promptExample">
+              <span data-i18n="tutor.promptExample">Give me an example</span>
+            </button>
+            <button class="tutor-chip-btn whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-white border border-[#E5E0D5] hover:border-[#29573F] hover:bg-[#EBF3EF] text-[#19221D] transition-colors" data-prompt-key="tutor.promptQuiz">
+              <span data-i18n="tutor.promptQuiz">Quiz me on this chapter</span>
+            </button>
+            <button class="tutor-chip-btn whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-white border border-[#E5E0D5] hover:border-[#29573F] hover:bg-[#EBF3EF] text-[#19221D] transition-colors" data-prompt-key="tutor.promptSummary">
+              <span data-i18n="tutor.promptSummary">Summarise this topic</span>
+            </button>
+          </div>
+
+          <!-- On-Screen Script Keyboard / Phonetic Helper Drawer (Hidden by default) -->
+          <div id="tutor-script-keyboard" class="hidden px-3 py-2 border-t border-[#E7E2D6] bg-[#FAF8F5] flex flex-col gap-1.5">
+            <div id="phonetic-preview-bar" class="hidden text-[11px] text-[#29573F] font-medium flex items-center justify-between gap-2">
+              <span id="phonetic-preview-text"></span>
+              <span class="text-[10px] text-[#596B61]" data-i18n="tutor.phoneticToggle">Phonetic typing</span>
+            </div>
+            <div id="script-char-palette" class="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+              <!-- Populated dynamically with active script characters -->
+            </div>
+          </div>
+
+          <!-- Input Bar with Voice, Phonetic Toggle, On-Screen Keyboard & Send -->
+          <form id="tutor-chat-form" class="p-3 sm:p-4 border-t border-[#E7E2D6] bg-white flex items-center gap-1.5 sm:gap-2">
+            <button type="button" id="btn-tutor-voice" data-i18n-title="tutor.voiceInputTooltip" data-i18n-aria-label="tutor.voiceInputTooltip" title="Voice input" aria-label="Voice input" class="p-2.5 min-h-[42px] min-w-[42px] flex items-center justify-center rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] text-[#596B61] hover:text-[#1B3E2C] hover:border-[#29573F] transition-colors shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+              </svg>
+            </button>
+
+            <button type="button" id="btn-tutor-keyboard" data-i18n-title="tutor.keyboardToggle" data-i18n-aria-label="tutor.keyboardToggle" title="On-screen keyboard" aria-label="On-screen keyboard" class="hidden p-2.5 min-h-[42px] min-w-[42px] items-center justify-center rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] text-[#596B61] hover:text-[#1B3E2C] hover:border-[#29573F] transition-colors shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h10m-4 4h8a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </button>
+
+            <input type="text" id="tutor-chat-input" data-i18n-placeholder="tutor.inputPlaceholder" placeholder="Ask a question about the active textbook..." class="flex-1 min-w-0 text-xs sm:text-sm px-3.5 py-2.5 min-h-[42px] rounded-xl border border-[#E5E0D5] focus:outline-none focus:border-[#29573F] bg-[#FAF8F5]" autocomplete="off" />
+
+            <button type="submit" id="tutor-btn-send" class="px-3.5 sm:px-4 py-2.5 min-h-[42px] rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white font-medium text-xs sm:text-sm flex items-center gap-1.5 transition-colors shrink-0">
+              <span data-i18n="tutor.send">Send</span>
+              <svg class="w-3.5 h-3.5 rtl-flip shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </form>
+        </section>
+
+        <!-- ================= VIEW 4: QUIZZES & MASTERY ================= -->
+        <section id="view-quiz" class="view-panel hidden flex flex-col gap-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[#122B1E]" data-i18n="quiz.title">Quizzes & Topic Mastery</h2>
+              <p class="text-xs sm:text-sm text-[#596B61]" data-i18n="quiz.subtitle">Active recall diagnostics with evidence-based scoring and prerequisite paths.</p>
+            </div>
+
+            <!-- Subject Filter -->
+            <div class="flex items-center gap-2">
+              <label for="quiz-subject-filter" class="text-xs text-[#596B61]" data-i18n="quiz.subjectLabel">Subject:</label>
+              <select id="quiz-subject-filter" class="text-xs bg-white border border-[#E5E0D5] rounded-xl px-3 py-2 text-[#19221D] focus:outline-none">
+                <option value="all" data-i18n="quiz.allSubjects">All Subjects</option>
+                <option value="Biology" data-i18n="subjects.Biology">Biology</option>
+                <option value="Mathematics" data-i18n="subjects.Mathematics">Mathematics</option>
+                <option value="World History" data-i18n="subjects.World History">World History</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Recommendations Carousel/List -->
+          <div class="bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs">
+            <h3 class="font-bold text-base text-[#19221D] mb-1" data-i18n="quiz.recommendationsTitle">Recommended Next Steps</h3>
+            <p class="text-xs text-[#596B61] mb-3" data-i18n="quiz.recommendationsSub">Evidence-based progression derived from your quiz accuracy and prerequisites</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="quiz-recommendations-list">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <!-- Active Quiz Container or Topic Selection Grid -->
+          <div id="quiz-runner-container" class="bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs">
+            <!-- Will render either topic cards or active questions via JS -->
+          </div>
+
+          <!-- Historical Attempts Log -->
+          <div class="bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs">
+            <h3 class="font-bold text-base text-[#19221D] mb-1" data-i18n="quiz.historyTitle">Past Quiz Attempts</h3>
+            <p class="text-xs text-[#596B61] mb-3" data-i18n="quiz.historySub">Record of scores, timestamps, and active recall trials</p>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-start">
+                <thead class="text-[#596B61] border-b border-[#E7E2D6] bg-[#FAF8F5]">
+                  <tr>
+                    <th class="py-2.5 px-3" data-i18n="quiz.colDate">Date</th>
+                    <th class="py-2.5 px-3" data-i18n="quiz.colSubjectTopic">Subject & Topic</th>
+                    <th class="py-2.5 px-3" data-i18n="quiz.colScore">Score</th>
+                    <th class="py-2.5 px-3" data-i18n="quiz.colAccuracy">Accuracy</th>
+                    <th class="py-2.5 px-3" data-i18n="quiz.colResult">Result</th>
+                  </tr>
+                </thead>
+                <tbody id="quiz-history-table-body" class="divide-y divide-[#E7E2D6]">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 5: STUDY PLAN & CALENDAR ================= -->
+        <section id="view-plan" class="view-panel hidden flex flex-col gap-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[#122B1E]" data-i18n="plan.title">Study Plan & Timetable</h2>
+              <p class="text-xs sm:text-sm text-[#596B61]" data-i18n="plan.subtitle">Rule-based weekly scheduler calibrated to your goals and mastery gaps.</p>
+            </div>
+
+            <div class="flex items-center gap-2 flex-wrap">
+              <button id="btn-generate-smart-plan" class="inline-flex items-center gap-1.5 px-3.5 py-2.5 min-h-[42px] rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white text-xs sm:text-sm font-medium shadow-xs transition-colors">
+                <svg class="w-4 h-4 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+                <span data-i18n="plan.generateSmart">Generate Smart Plan</span>
+              </button>
+              <button id="btn-plan-add-session" class="inline-flex items-center gap-1 px-3 py-2.5 min-h-[42px] rounded-xl bg-white border border-[#E5E0D5] hover:bg-[#FAF8F5] text-[#19221D] text-xs sm:text-sm font-medium shadow-xs transition-colors">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span data-i18n="plan.addSession">Add Session</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Study Plan Status / Text Output (Hidden unless active) -->
+          <div id="plan-ai-output" class="hidden rounded-3xl p-4 sm:p-5 border border-[#E7E2D6] bg-white shadow-xs"></div>
+
+          <!-- Date Selector Calendar Strip -->
+          <div class="bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs">
+            <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+              <h3 class="font-bold text-sm text-[#19221D]" data-i18n="plan.selectDate">Select Date</h3>
+              <span class="text-xs text-[#596B61]" id="plan-selected-date-label">Today: 21 Oct 2026</span>
+            </div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="plan-calendar-strip">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Sessions List for Selected Date -->
+          <div class="bg-white rounded-3xl p-5 border border-[#E7E2D6] shadow-xs flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-bold text-base text-[#19221D]" id="plan-sessions-heading" data-i18n="plan.scheduledSessions">Scheduled Sessions</h3>
+                <p class="text-xs text-[#596B61]" data-i18n="plan.sessionsHint">Click checkmark when completed to record study progress.</p>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3 mt-1" id="plan-sessions-container">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar (Visible on mobile screens) -->
+    <nav class="md:hidden fixed bottom-0 start-0 end-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-t border-[#E7E2D6] px-1.5 py-1.5" id="mobile-nav">
+      <div class="flex items-center justify-around">
+        <button data-tab="dashboard" class="mobile-nav-btn active flex flex-col items-center gap-1 px-1.5 py-1 min-h-[44px] text-[#1B3E2C]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span class="text-[10px] font-semibold leading-tight" data-i18n="nav.dashboardMobile">Today</span>
+        </button>
+
+        <button data-tab="textbooks" class="mobile-nav-btn flex flex-col items-center gap-1 px-1.5 py-1 min-h-[44px] text-[#596B61]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          <span class="text-[10px] font-medium leading-tight" data-i18n="nav.textbooksMobile">Textbooks</span>
+        </button>
+
+        <button data-tab="tutor" class="mobile-nav-btn flex flex-col items-center gap-1 px-1.5 py-1 min-h-[44px] text-[#596B61]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          <span class="text-[10px] font-medium leading-tight" data-i18n="nav.tutor">AI Tutor</span>
+        </button>
+
+        <button data-tab="quiz" class="mobile-nav-btn flex flex-col items-center gap-1 px-1.5 py-1 min-h-[44px] text-[#596B61]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-[10px] font-medium leading-tight" data-i18n="nav.quizMobile">Quizzes</span>
+        </button>
+
+        <button data-tab="plan" class="mobile-nav-btn flex flex-col items-center gap-1 px-1.5 py-1 min-h-[44px] text-[#596B61]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span class="text-[10px] font-medium leading-tight" data-i18n="nav.planMobile">Schedule</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ================= MODALS & DRAWERS ================= -->
+
+    <!-- 1. Student Onboarding & Preferences Modal -->
+    <div id="modal-onboarding" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 hidden" role="dialog" aria-modal="true">
+      <div class="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] flex flex-col overflow-hidden shadow-xl border border-[#E7E2D6]">
+        <!-- Modal Header -->
+        <div class="p-4 sm:p-5 border-b border-[#E7E2D6] bg-[#FAF8F5] flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <div class="w-8 h-8 rounded-xl bg-[#1B3E2C] text-emerald-300 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-bold text-base text-[#19221D]" data-i18n="onboarding.title">Student Learning Profile</h3>
+              <p class="text-xs text-[#596B61]" data-i18n="onboarding.subtitle">Personalise your study plan, AI tutor, and focus sessions</p>
+            </div>
+          </div>
+          <button id="btn-close-onboarding" data-i18n-aria-label="i18n.close" aria-label="Close" class="text-[#596B61] hover:text-[#19221D] p-1.5 rounded-lg hover:bg-[#EBF3EF]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Form Scroll Body -->
+        <form id="onboarding-form" class="p-4 sm:p-5 overflow-y-auto flex flex-col gap-4 text-xs sm:text-sm">
+
+          <!-- Quick Language & Accessibility Link in Settings/Profile -->
+          <button type="button" id="btn-onboarding-lang" class="w-full p-3 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D6] hover:border-[#29573F] flex items-center justify-between gap-2 text-start transition-colors">
+            <div class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-[#29573F] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              <span class="font-semibold text-xs text-[#19221D]" data-i18n="onboarding.languageSettingsLink">Language & Accessibility Settings</span>
+            </div>
+            <span id="ob-current-lang-badge" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#EBF3EF] text-[#1B3E2C]">English</span>
+          </button>
+
+          <!-- Explanation box -->
+          <div class="bg-[#EBF3EF] p-3 rounded-2xl border border-[#D8E7DF] text-xs text-[#29573F] leading-relaxed">
+            <strong data-i18n="onboarding.whyTitle">Why we ask:</strong>
+            <span data-i18n="onboarding.whyBody">We only collect academic preferences to calibrate the study-plan generator, adapt AI tutor explanations to your level, and schedule realistic focus intervals. No unnecessary personal data is requested.</span>
+          </div>
+
+          <!-- Student Name -->
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" for="ob-student-name" data-i18n="onboarding.nameLabel">Your Name or Preferred Nickname</label>
+            <input type="text" id="ob-student-name" required data-i18n-placeholder="onboarding.namePlaceholder" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none focus:border-[#29573F]" placeholder="e.g. Alex" />
+          </div>
+
+          <!-- Age Group -->
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" for="ob-age-group" data-i18n="onboarding.ageLabel">Age Group</label>
+            <select id="ob-age-group" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none focus:border-[#29573F]">
+              <option value="13-15" data-i18n="onboarding.age13_15">13–15 years (Junior Secondary / Middle School)</option>
+              <option value="16-18" selected data-i18n="onboarding.age16_18">16–18 years (Senior Secondary / High School)</option>
+              <option value="19-22" data-i18n="onboarding.age19_22">19–22 years (Undergraduate / College)</option>
+              <option value="adult" data-i18n="onboarding.ageAdult">23+ years (Lifelong / Professional Learner)</option>
+            </select>
+          </div>
+
+          <!-- Class / Grade / College Year -->
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" for="ob-academic-level" data-i18n="onboarding.levelLabel">Class, Grade or College Year</label>
+            <input type="text" id="ob-academic-level" data-i18n-placeholder="onboarding.levelPlaceholder" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none focus:border-[#29573F]" placeholder="e.g. Grade 11, Year 12, Sophomore" />
+          </div>
+
+          <!-- Subjects of Interest -->
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" data-i18n="onboarding.subjectsLabel">Subjects of Interest (Select all that apply)</label>
+            <div class="flex flex-wrap gap-1.5" id="ob-subjects-pills">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Academic Targets & Goals -->
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" for="ob-learning-goals" data-i18n="onboarding.goalsLabel">Upcoming Academic Target or Learning Goal</label>
+            <textarea id="ob-learning-goals" rows="2" data-i18n-placeholder="onboarding.goalsPlaceholder" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none focus:border-[#29573F]" placeholder="e.g. Master Biology respiration cycles and score 90% in midterms"></textarea>
+          </div>
+
+          <!-- Daily Study Hours & Focus Duration -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-[#19221D] mb-1" for="ob-study-hours" data-i18n="onboarding.hoursLabel">Available Study Time (Hours/day)</label>
+              <input type="number" id="ob-study-hours" min="0.5" max="8" step="0.5" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none" value="2.5" />
+            </div>
+            <div>
+              <label class="block font-semibold text-[#19221D] mb-1" for="ob-focus-duration" data-i18n="onboarding.durationLabel">Preferred Focus Interval</label>
+              <select id="ob-focus-duration" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none">
+                <option value="15" data-i18n="onboarding.duration15">15 minutes (Short Sprint)</option>
+                <option value="25" selected data-i18n="onboarding.duration25">25 minutes (Pomodoro Standard)</option>
+                <option value="45" data-i18n="onboarding.duration45">45 minutes (Deep Immersion)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Self-Reported Concentration Level -->
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" for="ob-concentration" data-i18n="onboarding.concentrationLabel">Concentration Pattern</label>
+            <select id="ob-concentration" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none">
+              <option value="high" data-i18n="onboarding.concHigh">High (Can focus steadily for extended stretches)</option>
+              <option value="moderate" selected data-i18n="onboarding.concModerate">Moderate (Best with structured 25m focus & short rests)</option>
+              <option value="variable" data-i18n="onboarding.concVariable">Variable (Easily fatigued, needs frequent bite-sized drills)</option>
+            </select>
+          </div>
+
+          <!-- Preferred Study Approach -->
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" data-i18n="onboarding.approachLabel">Preferred Study Approach</label>
+            <div class="grid grid-cols-1 gap-2" id="ob-approach-radios">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center justify-between gap-3 pt-3 border-t border-[#E7E2D6] mt-2">
+            <button type="button" id="btn-skip-onboarding" class="px-4 py-2 text-xs text-[#596B61] hover:text-[#19221D] font-medium" data-i18n="onboarding.skip">
+              Skip for now
+            </button>
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white font-medium text-xs sm:text-sm shadow-xs transition-colors" data-i18n="onboarding.save">
+              Save Preferences
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. Document Details & Extracted Passage Inspector Modal -->
+    <div id="modal-doc-viewer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 hidden" role="dialog" aria-modal="true">
+      <div class="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-xl border border-[#E7E2D6]">
+        <div class="p-4 border-b border-[#E7E2D6] bg-[#FAF8F5] flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <div class="w-8 h-8 rounded-xl bg-[#EBF3EF] text-[#29573F] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-bold text-sm text-[#19221D] truncate max-w-xs" id="doc-modal-title" data-i18n="modals.docTitle">Document Inspector</h3>
+              <p class="text-xs text-[#596B61]" id="doc-modal-subtitle" data-i18n="modals.docSubtitle">Extracted passages & local page references</p>
+            </div>
+          </div>
+          <button id="btn-close-doc-viewer" data-i18n-aria-label="i18n.close" aria-label="Close" class="text-[#596B61] hover:text-[#19221D] p-1.5 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="p-4 overflow-y-auto flex flex-col gap-3" id="doc-modal-content">
+          <!-- Populated via JS -->
+        </div>
+
+        <div class="p-3 border-t border-[#E7E2D6] bg-[#FAF8F5] flex justify-end">
+          <button id="btn-dismiss-doc-viewer" class="px-4 py-2 rounded-xl bg-white border border-[#E5E0D5] hover:bg-[#F4F1EA] text-xs font-medium text-[#19221D]" data-i18n="modals.closeInspector">
+            Close Inspector
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Edit Textbook Metadata Modal -->
+    <div id="modal-edit-textbook" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 hidden" role="dialog" aria-modal="true">
+      <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-xl border border-[#E7E2D6]">
+        <div class="p-4 border-b border-[#E7E2D6] bg-[#FAF8F5] flex items-center justify-between">
+          <h3 class="font-bold text-sm text-[#19221D]" data-i18n="modals.editTbTitle">Edit Textbook Information</h3>
+          <button id="btn-close-edit-tb" data-i18n-aria-label="i18n.close" aria-label="Close" class="text-[#596B61] hover:text-[#19221D]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <form id="edit-textbook-form" class="p-4 flex flex-col gap-3 text-xs sm:text-sm">
+          <input type="hidden" id="edit-tb-id" />
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.tbTitleLabel">Title</label>
+            <input type="text" id="edit-tb-title" required class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]" />
+          </div>
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.tbSubjectLabel">Subject</label>
+            <input type="text" id="edit-tb-subject" required class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]" />
+          </div>
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.tbChapterLabel">Chapter / Unit Label</label>
+            <input type="text" id="edit-tb-chapter" required class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]" />
+          </div>
+          <div class="flex justify-end gap-2 pt-2 border-t border-[#E7E2D6]">
+            <button type="button" id="btn-cancel-edit-tb" class="px-3 py-2 rounded-xl text-xs text-[#596B61]" data-i18n="modals.cancel">Cancel</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white text-xs font-medium" data-i18n="modals.saveChanges">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 4. Add Study Session Modal -->
+    <div id="modal-add-session" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 hidden" role="dialog" aria-modal="true">
+      <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-xl border border-[#E7E2D6]">
+        <div class="p-4 border-b border-[#E7E2D6] bg-[#FAF8F5] flex items-center justify-between">
+          <h3 class="font-bold text-sm text-[#19221D]" data-i18n="modals.addSessTitle">Schedule Study Session</h3>
+          <button id="btn-close-add-session" data-i18n-aria-label="i18n.close" aria-label="Close" class="text-[#596B61] hover:text-[#19221D]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <form id="add-session-form" class="p-4 flex flex-col gap-3 text-xs sm:text-sm">
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.sessTitleLabel">Session Title</label>
+            <input type="text" id="sess-title" required data-i18n-placeholder="modals.sessTitlePlaceholder" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]" placeholder="e.g. Cellular Respiration Glycolysis Review" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.sessSubjectLabel">Subject</label>
+              <select id="sess-subject" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]">
+                <option value="Biology" data-i18n="subjects.Biology">Biology</option>
+                <option value="Mathematics" data-i18n="subjects.Mathematics">Mathematics</option>
+                <option value="World History" data-i18n="subjects.World History">World History</option>
+                <option value="Physics" data-i18n="subjects.Physics">Physics</option>
+                <option value="Chemistry" data-i18n="subjects.Chemistry">Chemistry</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.sessDateLabel">Date</label>
+              <input type="date" id="sess-date" required class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]" />
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.sessStartLabel">Start Time</label>
+              <input type="time" id="sess-start-time" required value="16:00" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]" />
+            </div>
+            <div>
+              <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.sessDurationLabel">Duration (Mins)</label>
+              <select id="sess-duration" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]">
+                <option value="25" data-i18n="modals.sessDuration25">25 minutes</option>
+                <option value="45" selected data-i18n="modals.sessDuration45">45 minutes</option>
+                <option value="60" data-i18n="modals.sessDuration60">60 minutes</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block font-semibold text-[#19221D] mb-1" data-i18n="modals.sessRationaleLabel">Study Goal / Rationale</label>
+            <input type="text" id="sess-rationale" data-i18n-placeholder="modals.sessRationalePlaceholder" class="w-full px-3 py-2 rounded-xl border border-[#E5E0D5] bg-[#FAF8F5]" placeholder="e.g. Master electron transport chain diagrams" />
+          </div>
+          <div class="flex justify-end gap-2 pt-2 border-t border-[#E7E2D6]">
+            <button type="button" id="btn-cancel-add-session" class="px-3 py-2 rounded-xl text-xs text-[#596B61]" data-i18n="modals.cancel">Cancel</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white text-xs font-medium" data-i18n="modals.addToSchedule">Add to Schedule</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 5. Language & Accessibility Switcher Modal -->
+    <div id="modal-language" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 hidden" role="dialog" aria-modal="true" aria-labelledby="lang-modal-title">
+      <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-xl border border-[#E7E2D6]">
+        <!-- Header -->
+        <div class="p-4 sm:p-5 border-b border-[#E7E2D6] bg-[#FAF8F5] flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-9 h-9 rounded-xl bg-[#1B3E2C] text-emerald-300 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <h3 id="lang-modal-title" class="font-bold text-base text-[#19221D]" data-i18n="i18n.switcherTitle">Language & Accessibility</h3>
+              <p class="text-xs text-[#596B61]" data-i18n="i18n.switcherSubtitle">Choose your preferred Indian language, script, and reading comfort</p>
+            </div>
+          </div>
+          <button id="btn-close-language" data-i18n-aria-label="i18n.close" aria-label="Close" class="text-[#596B61] hover:text-[#19221D] p-2 rounded-lg hover:bg-[#EBF3EF]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Search Input -->
+        <div class="p-3 sm:p-4 border-b border-[#E7E2D6] bg-white">
+          <div class="relative">
+            <svg class="w-4 h-4 text-[#596B61] absolute start-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" id="lang-search-input" data-i18n-placeholder="i18n.searchPlaceholder" placeholder="Search by native name, English name, or code (e.g. hi, தமிழ்)..." class="w-full ps-10 pe-4 py-2.5 text-xs sm:text-sm rounded-xl border border-[#E5E0D5] bg-[#FAF8F5] focus:outline-none focus:border-[#29573F]" autocomplete="off" />
+          </div>
+        </div>
+
+        <!-- Scrollable Languages + Accessibility Options -->
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-5">
+          <!-- Language Sections (Recently Used, Popular, All A-Z) -->
+          <div id="lang-list-container" class="flex flex-col gap-5">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+          <!-- Reading Comfort & Script Preferences -->
+          <div class="pt-4 border-t border-[#E7E2D6] flex flex-col gap-3">
+            <!-- Font Size Controls -->
+            <div class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D6]">
+              <span class="text-xs font-semibold text-[#19221D]" data-i18n="i18n.fontSizeLabel">Text Size</span>
+              <div class="flex items-center gap-1.5" role="group" aria-label="Text Size">
+                <button type="button" data-font-scale="-1" class="font-scale-btn px-3 py-1.5 rounded-lg border border-[#E5E0D5] bg-white text-xs font-semibold text-[#19221D] hover:bg-[#EBF3EF]">A-</button>
+                <button type="button" data-font-scale="0" class="font-scale-btn px-3 py-1.5 rounded-lg border border-[#E5E0D5] bg-white text-xs font-semibold text-[#19221D] hover:bg-[#EBF3EF]">A</button>
+                <button type="button" data-font-scale="1" class="font-scale-btn px-3 py-1.5 rounded-lg border border-[#E5E0D5] bg-white text-xs font-semibold text-[#19221D] hover:bg-[#EBF3EF]">A+</button>
+              </div>
+            </div>
+
+            <!-- Native Digits Toggle -->
+            <label class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D6] cursor-pointer">
+              <div>
+                <div class="text-xs font-semibold text-[#19221D]" data-i18n="i18n.nativeDigitsLabel">Use native script digits</div>
+                <div class="text-[11px] text-[#596B61]" data-i18n="i18n.nativeDigitsDesc">Display numbers in your language's traditional numerals when available</div>
+              </div>
+              <input type="checkbox" id="toggle-native-digits" class="w-4 h-4 accent-[#1B3E2C] shrink-0" />
+            </label>
+
+            <!-- High Contrast Toggle -->
+            <label class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D6] cursor-pointer">
+              <div>
+                <div class="text-xs font-semibold text-[#19221D]" data-i18n="i18n.highContrastLabel">High Contrast Mode</div>
+                <div class="text-[11px] text-[#596B61]" data-i18n="i18n.highContrastDesc">Increase border and text contrast for easier reading</div>
+              </div>
+              <input type="checkbox" id="toggle-high-contrast" class="w-4 h-4 accent-[#1B3E2C] shrink-0" />
+            </label>
+
+            <!-- Phonetic Typing Helper Toggle -->
+            <label class="flex items-center justify-between gap-3 p-3 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D6] cursor-pointer">
+              <div>
+                <div class="text-xs font-semibold text-[#19221D]" data-i18n="i18n.phoneticTypingLabel">Phonetic Typing Helper</div>
+                <div class="text-[11px] text-[#596B61]" data-i18n="i18n.phoneticTypingDesc">Convert Roman letters into your active script while typing</div>
+              </div>
+              <input type="checkbox" id="toggle-phonetic-typing" class="w-4 h-4 accent-[#1B3E2C] shrink-0" />
+            </label>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-3 border-t border-[#E7E2D6] bg-[#FAF8F5] flex justify-end">
+          <button id="btn-dismiss-language" class="px-4 py-2 rounded-xl bg-[#1B3E2C] hover:bg-[#29573F] text-white text-xs font-medium" data-i18n="i18n.close">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-20 md:bottom-6 end-4 z-50 px-4 py-2.5 rounded-2xl bg-[#1B3E2C] text-white text-xs sm:text-sm font-medium shadow-lg transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+      <svg class="w-4 h-4 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+      <span id="toast-message">Notification message</span>
+    </div>
+
+    <!-- App JavaScript Entrypoint -->
+  </body>
+</html>
